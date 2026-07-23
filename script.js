@@ -1,119 +1,94 @@
-// =====================================
-// FIFA TV - Firebase
+// ======================================
+// FIFA TV - Firebase Authentication
 // script.js
-// =====================================
+// ======================================
 
 
-import { initializeApp }
-from "firebase/app";
-
+import { initializeApp } from "firebase/app";
 
 import {
-
     getAuth,
     GoogleAuthProvider,
     signInWithPopup,
     onAuthStateChanged,
     signOut
-
-}
-from "firebase/auth";
-
-
+} from "firebase/auth";
 
 import {
-
     getAnalytics
-
-}
-from "firebase/analytics";
+} from "firebase/analytics";
 
 
 
-
-// =====================================
-// Firebase Configuration (.env)
-// =====================================
+// ======================================
+// Firebase config depuis Vercel / .env
+// ======================================
 
 
 const firebaseConfig = {
 
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
 
-    apiKey:
-    import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
 
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
 
-    authDomain:
-    import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
 
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
 
-    projectId:
-    import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
 
-
-    storageBucket:
-    import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-
-
-    messagingSenderId:
-    import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-
-
-    appId:
-    import.meta.env.VITE_FIREBASE_APP_ID,
-
-
-    measurementId:
-    import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
-
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 
 };
 
 
 
+// Vérification configuration
 
-// =====================================
+console.log(
+    "Firebase API KEY :",
+    firebaseConfig.apiKey
+);
+
+
+
+// ======================================
 // Initialize Firebase
-// =====================================
+// ======================================
 
 
-const app =
-initializeApp(firebaseConfig);
-
+const app = initializeApp(firebaseConfig);
 
 
 
-// Analytics (désactivé si erreur navigateur)
+// Analytics (optionnel)
 
 let analytics = null;
 
-
 try {
 
-    analytics =
-    getAnalytics(app);
+    analytics = getAnalytics(app);
 
 }
 
 catch(error){
 
     console.log(
-        "Analytics non disponible"
+        "Analytics désactivé"
     );
 
 }
 
 
 
+// ======================================
+// Auth
+// ======================================
 
-// =====================================
-// Authentication
-// =====================================
 
-
-const auth =
-getAuth(app);
-
+const auth = getAuth(app);
 
 
 const googleProvider =
@@ -121,14 +96,12 @@ new GoogleAuthProvider();
 
 
 
-
-// =====================================
+// ======================================
 // Exports
-// =====================================
+// ======================================
 
 
 export {
-
 
     auth,
 
@@ -139,6 +112,5 @@ export {
     onAuthStateChanged,
 
     signOut
-
 
 };
