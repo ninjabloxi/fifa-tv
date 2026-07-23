@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,127 +11,188 @@
 <link rel="stylesheet" href="style.css">
 
 </head>
+
+
 <body>
+
 
 <div class="container">
 
+
     <div class="title">
+
         Connectez vous pour<br>
         accéder à FIFA TV
+
     </div>
+
+
 
     <div class="login-card">
 
+
         <div class="login-title">
+
             Continuer avec une adresse mail
+
         </div>
+
+
 
         <button class="email-button">
 
+
             <img src="mail.png">
 
+
             <div class="email-text">
+
                 exemple@mail.com
+
             </div>
+
 
         </button>
 
+
+
         <div class="resend">
+
             (Connexion mail bientôt disponible)
+
         </div>
 
+
     </div>
+
+
+
+
 
     <button
         class="google-button"
         id="googleBtn">
 
+
         <img src="google.png">
 
+
         <span>
+
             Continuer avec Google
+
         </span>
 
+
     </button>
+
+
+
+
 
     <div
         class="status"
         id="status">
+
     </div>
+
+
+
 
 </div>
 
-<script type="module">
 
-import {
-    auth,
-    googleProvider,
-    signInWithPopup,
-    onAuthStateChanged
-} from "./script.js";
+
+
+
+<script>
+
 
 const googleBtn =
 document.getElementById(
     "googleBtn"
 );
 
+
+
 const status =
 document.getElementById(
     "status"
 );
 
+
+
+
+
 googleBtn.addEventListener(
-    "click",
-    async () => {
+"click",
+async()=>{
 
-        try{
 
-            await signInWithPopup(
-                auth,
-                googleProvider
-            );
+    try{
 
-        }catch(error){
 
-            status.textContent =
-            error.message;
+        status.textContent =
+        "Connexion Google...";
 
-        }
 
-    }
-);
 
-onAuthStateChanged(
-    auth,
-    user => {
+        const response =
+        await fetch(
+            "/api/auth/google"
+        );
 
-        if(user){
 
-            status.textContent =
-            "Connecté : " +
-            user.displayName;
 
-            setTimeout(() => {
+        const data =
+        await response.json();
 
-                document.body
-                .classList
-                .add("fadeOut");
 
-                setTimeout(() => {
 
-                    window.location.href =
-                    "home.html";
 
-                },500);
+        if(data.url){
 
-            },1000);
+
+            window.location.href =
+            data.url;
+
 
         }
 
+        else{
+
+
+            status.textContent =
+            "Erreur de connexion";
+
+
+        }
+
+
+
     }
-);
+
+
+    catch(error){
+
+
+        status.textContent =
+        error.message;
+
+
+    }
+
+
+
+});
+
+
+
+
 
 </script>
 
+
 </body>
+
 </html>
