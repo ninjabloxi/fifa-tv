@@ -1,0 +1,15 @@
+{
+  "name": "fifa-tv",
+  "version": "1.0.0",
+  "description": "FIFA TV Login",
+  "type": "module",
+  "scripts": {
+    "start": "vite"
+  },
+  "dependencies": {
+    "firebase": "^12.0.0"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}
