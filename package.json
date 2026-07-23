@@ -1,15 +1,36 @@
 {
-  "name": "fifa-tv",
+  "name": "fifa-tv-web",
   "version": "1.0.0",
-  "description": "FIFA TV Login",
+  "description": "FIFA TV Web Application",
   "type": "module",
+
   "scripts": {
-    "start": "vite"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
+
   "dependencies": {
     "firebase": "^12.0.0"
   },
+
   "devDependencies": {
     "vite": "^7.0.0"
-  }
+  },
+
+  "engines": {
+    "node": ">=20"
+  },
+
+  "keywords": [
+    "fifa",
+    "tv",
+    "firebase",
+    "vite",
+    "vercel",
+    "webapp"
+  ],
+
+  "author": "",
+  "license": "MIT"
 }
