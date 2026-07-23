@@ -1,96 +1,74 @@
-// ======================================
-// FIFA TV - Firebase Authentication
+// =====================================
+// FIFA TV - Firebase Auth
 // script.js
-// ======================================
+// =====================================
 
 
-// Firebase imports
+// Import Firebase
 
-import {
-    initializeApp
-}
+import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 
 import {
+
     getAuth,
     GoogleAuthProvider,
     signInWithPopup,
     onAuthStateChanged,
     signOut
+
 }
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 
 
-
-// ======================================
-// Firebase Configuration
-// ======================================
-
+// =====================================
+// Configuration Firebase
+// =====================================
 
 const firebaseConfig = {
 
-
     apiKey: "TON_API_KEY",
 
-    authDomain:
-    "TON_PROJECT.firebaseapp.com",
+    authDomain: "TON_PROJECT.firebaseapp.com",
 
-    projectId:
-    "TON_PROJECT_ID",
+    projectId: "TON_PROJECT_ID",
 
-    storageBucket:
-    "TON_PROJECT.appspot.com",
+    storageBucket: "TON_PROJECT.appspot.com",
 
-    messagingSenderId:
-    "TON_MESSAGING_SENDER_ID",
+    messagingSenderId: "TON_MESSAGING_SENDER_ID",
 
-    appId:
-    "TON_APP_ID"
-
+    appId: "TON_APP_ID"
 
 };
 
 
 
 
-
-// ======================================
-// Initialize Firebase
-// ======================================
-
+// =====================================
+// Initialisation Firebase
+// =====================================
 
 const app =
 initializeApp(firebaseConfig);
 
 
 
-
-
-// Firebase Auth
-
 const auth =
 getAuth(app);
 
 
-
-
-
-// Google Provider
 
 const googleProvider =
 new GoogleAuthProvider();
 
 
 
-
-
-// ======================================
-// Exports pour login.html
-// ======================================
-
+// =====================================
+// Export pour login.html
+// =====================================
 
 export {
 
