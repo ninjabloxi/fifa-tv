@@ -20,10 +20,8 @@
 
 
     <div class="title">
-
         Connectez vous pour<br>
         accéder à FIFA TV
-
     </div>
 
 
@@ -32,9 +30,7 @@
 
 
         <div class="login-title">
-
             Continuer avec une adresse mail
-
         </div>
 
 
@@ -46,9 +42,7 @@
 
 
             <div class="email-text">
-
                 exemple@mail.com
-
             </div>
 
 
@@ -57,14 +51,11 @@
 
 
         <div class="resend">
-
             (Connexion mail bientôt disponible)
-
         </div>
 
 
     </div>
-
 
 
 
@@ -78,9 +69,7 @@
 
 
         <span>
-
             Continuer avec Google
-
         </span>
 
 
@@ -89,13 +78,11 @@
 
 
 
-
     <div
-        class="status"
-        id="status">
+    class="status"
+    id="status">
 
     </div>
-
 
 
 
@@ -104,93 +91,153 @@
 
 
 
+<script type="module">
 
-<script>
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import { 
+getAuth,
+GoogleAuthProvider,
+signInWithPopup,
+onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+
+
+// Configuration Firebase
+// Ces valeurs ne sont pas des secrets
+
+const firebaseConfig = {
+
+
+    apiKey: "TON_API_KEY",
+
+    authDomain: "TON_AUTH_DOMAIN",
+
+    projectId: "TON_PROJECT_ID",
+
+
+};
+
+
+
+
+const app =
+initializeApp(firebaseConfig);
+
+
+
+const auth =
+getAuth(app);
+
+
+
+const provider =
+new GoogleAuthProvider();
+
+
 
 
 const googleBtn =
 document.getElementById(
-    "googleBtn"
+"googleBtn"
 );
 
 
 
 const status =
 document.getElementById(
-    "status"
+"status"
 );
 
 
 
 
 
-googleBtn.addEventListener(
-"click",
+googleBtn.onclick =
 async()=>{
 
 
-    try{
+try{
 
 
-        status.textContent =
-        "Connexion Google...";
-
-
-
-        const response =
-        await fetch(
-            "/api/auth/google"
-        );
+await signInWithPopup(
+auth,
+provider
+);
 
 
 
-        const data =
-        await response.json();
+}
+
+catch(error){
+
+
+status.textContent =
+error.message;
+
+
+}
+
+
+};
 
 
 
 
-        if(data.url){
+
+onAuthStateChanged(
+auth,
+(user)=>{
 
 
-            window.location.href =
-            data.url;
+if(user){
 
 
-        }
-
-        else{
-
-
-            status.textContent =
-            "Erreur de connexion";
-
-
-        }
+status.textContent =
+"Connecté : " +
+user.displayName;
 
 
 
-    }
+setTimeout(()=>{
 
 
-    catch(error){
+document.body.classList.add(
+"fadeOut"
+);
 
 
-        status.textContent =
-        error.message;
+
+setTimeout(()=>{
 
 
-    }
+window.location.href =
+"home.html";
+
+
+},500);
+
+
+
+},1000);
+
+
+
+}
 
 
 
 });
 
 
-
-
-
 </script>
+
 
 
 </body>
