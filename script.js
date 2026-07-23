@@ -1,13 +1,11 @@
 // =====================================
-// FIFA TV - Firebase Auth
+// FIFA TV - Firebase
 // script.js
 // =====================================
 
 
-// Import Firebase
-
 import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+from "firebase/app";
 
 
 import {
@@ -19,28 +17,55 @@ import {
     signOut
 
 }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+from "firebase/auth";
+
+
+
+import {
+
+    getAnalytics
+
+}
+from "firebase/analytics";
 
 
 
 
 // =====================================
-// Configuration Firebase
+// Firebase Configuration (.env)
 // =====================================
+
 
 const firebaseConfig = {
 
-    apiKey: "TON_API_KEY",
 
-    authDomain: "TON_PROJECT.firebaseapp.com",
+    apiKey:
+    import.meta.env.VITE_FIREBASE_API_KEY,
 
-    projectId: "TON_PROJECT_ID",
 
-    storageBucket: "TON_PROJECT.appspot.com",
+    authDomain:
+    import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
 
-    messagingSenderId: "TON_MESSAGING_SENDER_ID",
 
-    appId: "TON_APP_ID"
+    projectId:
+    import.meta.env.VITE_FIREBASE_PROJECT_ID,
+
+
+    storageBucket:
+    import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+
+
+    messagingSenderId:
+    import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+
+
+    appId:
+    import.meta.env.VITE_FIREBASE_APP_ID,
+
+
+    measurementId:
+    import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+
 
 };
 
@@ -48,12 +73,42 @@ const firebaseConfig = {
 
 
 // =====================================
-// Initialisation Firebase
+// Initialize Firebase
 // =====================================
+
 
 const app =
 initializeApp(firebaseConfig);
 
+
+
+
+// Analytics (désactivé si erreur navigateur)
+
+let analytics = null;
+
+
+try {
+
+    analytics =
+    getAnalytics(app);
+
+}
+
+catch(error){
+
+    console.log(
+        "Analytics non disponible"
+    );
+
+}
+
+
+
+
+// =====================================
+// Authentication
+// =====================================
 
 
 const auth =
@@ -66,11 +121,14 @@ new GoogleAuthProvider();
 
 
 
+
 // =====================================
-// Export pour login.html
+// Exports
 // =====================================
 
+
 export {
+
 
     auth,
 
@@ -81,5 +139,6 @@ export {
     onAuthStateChanged,
 
     signOut
+
 
 };
